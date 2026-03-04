@@ -1,4 +1,6 @@
-from core.process_monitor import monitor_processes
+from core.process_monitor import monitor_processes_changes
+from database.db import initialize_database
 
 if __name__ == "__main__":
-    monitor_processes()
+    initialize_database()
+    monitor_processes_changes()
