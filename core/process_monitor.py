@@ -1,8 +1,9 @@
 import psutil as ps
 import time
-from database.db import get_connection
+from database.db import log_process_event
+from core.risk_analyzer import calculate_path_risk
 
-from database.db import get_connection
+
 
 def get_process_metadata(pid):
     try:
@@ -17,18 +18,7 @@ def get_process_metadata(pid):
     except(ps.NoSuchProcess, ps.AccessDenied):
         return None, None, None, None, None
 
-def log_event(event_type, process_name, pid, cpu, memory, exe_path, parent, username):
-    conn = get_connection()
-    cursor = conn.cursor()
 
-    cursor.execute("""
-        INSERT INTO process_events
-        (event_type, process_name, pid, cpu_percent, memory_percent, exe_path, parent_process, username)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    """, (event_type, process_name, pid, cpu, memory, exe_path, parent, username))
-
-    conn.commit()
-    conn.close()
 
 def get_process_snapshot():
     processes = {}
@@ -58,7 +48,9 @@ def monitor_processes_changes():
 
             cpu, memory, exe_path, parent, username = get_process_metadata(pid)
 
-            log_event(
+            risk = calculate_path_risk(exe_path)
+
+            log_process_event(
                 "START",
                 name,
                 pid,
@@ -72,5 +64,5 @@ def monitor_processes_changes():
         for pid in terminated_processes:
             name = previous_snapshot[pid]
             print(f"[TERMINATED] {name} (PID: {pid})")
-            log_event("TERMINATED", name, pid, None, None, None, None, None)
+            log_process_event("TERMINATED", name, pid, None, None, None, None, None)
         previous_snapshot = current_snapshot
