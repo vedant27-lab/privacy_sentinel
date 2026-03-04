@@ -15,7 +15,12 @@ def initialize_database():
             timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
             event_type TEXT,
             process_name TEXT,
-            pid INTEGER
+            pid INTEGER,
+            cpu_percent REAL,
+            memory_percent REAL,
+            exe_path TEXT,
+            parent_process TEXT,
+            username TEXT
         )
     """)
 
