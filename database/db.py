@@ -77,3 +77,16 @@ def log_process_event(event_type, process_name, pid, cpu, memory, exe_path, pare
 
     conn.commit()
     conn.close()
+
+def log_device_event(device_type, process_name, pid):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        INSERT INTO device_events
+        (device_type, process_name, pid)
+        VALUES (?, ?, ?)
+    """, (device_type, process_name, pid))
+
+    conn.commit()
+    conn.close()
