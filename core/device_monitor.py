@@ -1,6 +1,8 @@
 import winreg
 import time
 from database.db import log_device_event
+from core.rule_engine import evaluate_proess_risk
+import psutil
 
 KEYS = {
     "WEBCAM": r"SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\webcam",
@@ -83,6 +85,16 @@ def monitor_devices():
                 if identifier not in last_seen:
                     print(f"[ALERT] {device} in use | Type: {app['type']} | App: {app['app']}")
                     log_device_event(device, app['app'], 0)
+
+                    alerts = evaluate_proess_risk(
+                        process_name=app['app'],
+                        cpu=None,
+                        exe_path=app['app'],
+                        device_used=True
+                    )
+
+                    for alert in alerts:
+                        print(f"[Risk] {alert}")
         
         last_seen = current_seen
         time.sleep(1)
