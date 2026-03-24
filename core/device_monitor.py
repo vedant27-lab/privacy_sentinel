@@ -2,6 +2,8 @@ import winreg
 import time
 from database.db import log_device_event
 from core.rule_engine import evaluate_proess_risk
+from core.network_monitor import get_connections_by_process_name
+import os
 import psutil
 
 KEYS = {
@@ -95,6 +97,13 @@ def monitor_devices():
 
                     for alert in alerts:
                         print(f"[Risk] {alert}")
-        
+                process_name = os.path.basename(app['app'])
+                connections = get_connections_by_process_name(process_name)
+                if connections:
+                    for conn in connections:
+                        print(f"[NETWORK] {process_name} -> {conn['ip']}:{conn['port']}")
+                else:
+                    print(f"[NETWORK] {process_name} -> No active connections")
+
         last_seen = current_seen
         time.sleep(1)
