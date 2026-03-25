@@ -65,19 +65,19 @@ def log_network_event(process_name, pid, ip, port):
     conn.commit()
     conn.close()
 
-def log_process_event(event_type, process_name, pid, cpu, memory, exe_path, parent, username):
+def log_process_event(event_type, process_name, pid, cpu, memory, exe_path, parent, username, risk_level=None, reason=None):
+
     conn = get_connection()
     cursor = conn.cursor()
 
     cursor.execute("""
         INSERT INTO process_events
-        (event_type, process_name, pid, cpu_percent, memory_percent, exe_path, parent_process, username)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    """, (event_type, process_name, pid, cpu, memory, exe_path, parent, username))
+        (event_type, process_name, pid, cpu_percent, memory_percent, exe_path, parent_process, username, risk_level, reason)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """, (event_type, process_name, pid, cpu, memory, exe_path, parent, username, risk_level, reason))
 
     conn.commit()
     conn.close()
-
 def log_device_event(device_type, process_name, pid):
     conn = get_connection()
     cursor = conn.cursor()

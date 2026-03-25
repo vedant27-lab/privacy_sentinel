@@ -1,0 +1,30 @@
+import psutil
+import os
+from core.network_monitor import get_connections_by_process_name
+
+def build_context(process_name, pid, mic=False, cam=False, screen=False):
+    cpu = None
+    exe_path = None
+    connetions = []
+
+    try: 
+        proc = psutil.Process(pid)
+        cpu = proc.cpu_percent(interval=0.1)
+        exe_path = proc.exe()
+
+        connetions = get_connections_by_process_name(process_name)
+
+    except:
+        pass
+
+    return {
+        "process_name": process_name,
+        "pid": pid,
+        "cpu": cpu,
+        "exe_path": exe_path,
+        "network": len(connetions),
+        "connections": connetions,
+        "mic": mic,
+        "cam": cam,
+        "screen": screen
+    }
