@@ -12,7 +12,6 @@ def load_data():
         risk_level,
         timestamp
     FROM process_events
-    WHERE event_type LIKE 'SCREEN%
     """
     df = pd.read_sql_query(query, conn)
     conn.close()

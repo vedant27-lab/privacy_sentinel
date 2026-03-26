@@ -37,10 +37,10 @@ def monitor_processes_changes():
         time.sleep(5)
         current_snapshot = get_process_snapshot()
         previous_pids = set(previous_snapshot.keys())
-        currnet_pid = set(current_snapshot.keys())
+        current_pid = set(current_snapshot.keys())
 
-        new_processes = currnet_pid - previous_pids
-        terminated_processes = previous_pids - currnet_pid
+        new_processes = current_pid - previous_pids
+        terminated_processes = previous_pids - current_pid
 
         for pid in new_processes:
             name = current_snapshot[pid]

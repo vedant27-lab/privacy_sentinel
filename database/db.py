@@ -20,7 +20,9 @@ def initialize_database():
             memory_percent REAL,
             exe_path TEXT,
             parent_process TEXT,
-            username TEXT
+            username TEXT,
+            risk_level REAL,
+            reason TEXT
         )
         
     """)
