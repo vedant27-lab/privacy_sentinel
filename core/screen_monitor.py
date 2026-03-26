@@ -123,7 +123,7 @@ def monitor_screen():
                 print(f"Process: {info['name']} (PID {pid})")
                 print(f"Time: {datetime.now()}\n")
 
-                log_device_event("SCREEN_STOP", info['name', pid])
+                log_device_event("SCREEN_STOP", info['name'], pid)
         active_screen_processes = detected
 
         time.sleep(CHECK_INTERVAL)
