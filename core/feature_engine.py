@@ -45,7 +45,7 @@ def preprocess(df):
         "CRITICAL": 3
     }
 
-    df["risk_num"] = df["exe_path"].map(risk_map).fillna(0)
+    df["risk_num"] = df["risk_level"].map(risk_map).fillna(0)
 
     return df
 

@@ -1,9 +1,7 @@
-from core.identity import is_suspicious_path, get_signature_status
-from core.behavior import get_behavior_flags
+from identity import is_suspicious_path, get_signature_status
+from behavior import get_behavior_flags
 
 def evaluate(ctx):
-    reasons = []
-
     flags = get_behavior_flags(ctx)
 
     suspicious_path = is_suspicious_path(ctx["exe_path"])
@@ -14,7 +12,7 @@ def evaluate(ctx):
             if suspicious_path or signature != "VALID":
                 return "CRITICAL", [
                     "Sensitive device access",
-                    "Network transimission",
+                    "Network transmission",
                     "Untrusted identity"
                 ]
             
@@ -26,5 +24,5 @@ def evaluate(ctx):
         
         if "MIC" in flags or "CAM" in flags:
             return "MEDIUM", ["Suspicious path"]
-        
-        return "LOW", ["Normal"]
+    
+    return "LOW", ["Normal"]

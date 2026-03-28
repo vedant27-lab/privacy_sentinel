@@ -1,18 +1,18 @@
 import psutil
 import os
-from core.network_monitor import get_connections_by_process_name
+from network_monitor import get_connections_by_process_name
 
 def build_context(process_name, pid, mic=False, cam=False, screen=False):
     cpu = None
     exe_path = None
-    connetions = []
+    connections = []
 
     try: 
         proc = psutil.Process(pid)
         cpu = proc.cpu_percent(interval=0.1)
         exe_path = proc.exe()
 
-        connetions = get_connections_by_process_name(process_name)
+        connections = get_connections_by_process_name(process_name)
 
     except:
         pass
@@ -22,8 +22,8 @@ def build_context(process_name, pid, mic=False, cam=False, screen=False):
         "pid": pid,
         "cpu": cpu,
         "exe_path": exe_path,
-        "network": len(connetions),
-        "connections": connetions,
+        "network": len(connections),
+        "connections": connections,
         "mic": mic,
         "cam": cam,
         "screen": screen

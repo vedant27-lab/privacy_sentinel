@@ -45,4 +45,4 @@ def get_connections_by_process_name(target):
                     })
             except (ps.NoSuchProcess, ps.AccessDenied):
                 pass
-        return connections
+    return connections

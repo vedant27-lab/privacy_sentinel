@@ -16,7 +16,7 @@ def get_signature_status(path):
         if "Valid" in out:
             return "VALID"
         return "INVALID"
-    except:
+    except Exception:
         return "UNKNOWN"
     
     

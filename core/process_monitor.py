@@ -1,7 +1,7 @@
 import psutil as ps
 import time
 from database.db import log_process_event
-from core.risk_analyzer import calculate_path_risk
+from risk_analyzer import calculate_path_risk
 
 
 
@@ -37,10 +37,10 @@ def monitor_processes_changes():
         time.sleep(5)
         current_snapshot = get_process_snapshot()
         previous_pids = set(previous_snapshot.keys())
-        current_pid = set(current_snapshot.keys())
+        current_pids = set(current_snapshot.keys())
 
-        new_processes = current_pid - previous_pids
-        terminated_processes = previous_pids - current_pid
+        new_processes = current_pids - previous_pids
+        terminated_processes = previous_pids - current_pids
 
         for pid in new_processes:
             name = current_snapshot[pid]

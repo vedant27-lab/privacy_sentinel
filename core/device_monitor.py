@@ -1,8 +1,8 @@
 import winreg
 import time
 from database.db import log_device_event
-from core.rule_engine import evaluate_proess_risk
-from core.network_monitor import get_connections_by_process_name
+from rule_engine import evaluate_proess_risk
+from network_monitor import get_connections_by_process_name
 import os
 import psutil
 
@@ -88,7 +88,7 @@ def monitor_devices():
                     print(f"[ALERT] {device} in use | Type: {app['type']} | App: {app['app']}")
                     log_device_event(device, app['app'], 0)
 
-                    alerts = evaluate_proess_risk(
+                    alerts = evaluate_process_risk(
                         process_name=app['app'],
                         cpu=None,
                         exe_path=app['app'],

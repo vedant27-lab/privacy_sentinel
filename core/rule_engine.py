@@ -1,4 +1,4 @@
-def evaluate_proess_risk(process_name, cpu, exe_path, device_used):
+def evaluate_process_risk(process_name, cpu, exe_path, device_used):
     alerts = []
     if cpu and cpu > 80:
         alerts.append("High CPU usage")
