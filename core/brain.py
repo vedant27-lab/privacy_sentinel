@@ -1,5 +1,5 @@
-from identity import is_suspicious_path, get_signature_status
-from behavior import get_behavior_flags
+from core.identity import is_suspicious_path, get_signature_status
+from core.behavior import get_behavior_flags
 
 def evaluate(ctx):
     flags = get_behavior_flags(ctx)

@@ -1,7 +1,7 @@
 import psutil as ps
 import time
 from database.db import log_process_event
-from risk_analyzer import calculate_path_risk
+from core.risk_analyzer import calculate_path_risk
 
 
 

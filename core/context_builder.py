@@ -1,6 +1,6 @@
 import psutil
 import os
-from network_monitor import get_connections_by_process_name
+from core.network_monitor import get_connections_by_process_name
 
 def build_context(process_name, pid, mic=False, cam=False, screen=False):
     cpu = None

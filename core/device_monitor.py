@@ -1,8 +1,8 @@
 import winreg
 import time
 from database.db import log_device_event
-from rule_engine import evaluate_proess_risk
-from network_monitor import get_connections_by_process_name
+from core.rule_engine import evaluate_process_risk
+from core.network_monitor import get_connections_by_process_name
 import os
 import psutil
 
