@@ -1,5 +1,5 @@
 from sklearn.ensemble import IsolationForest
-from feature_engine import get_features
+from core.feature_engine import get_features
 import joblib
 
 def train():

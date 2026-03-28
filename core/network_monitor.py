@@ -1,7 +1,13 @@
 import psutil as ps
 from database.db import log_network_event
 import socket
-
+SYSTEM_PROCESSES = [
+    "svchost.exe",
+    "system",
+    "lsass.exe",
+    "services.exe",
+    "wudfhost.exe"
+]
 def get_network_connections():
     connections = []
 
@@ -38,8 +44,13 @@ def get_connections_by_process_name(target):
                 name = proc.name()
 
                 if target.lower() in name.lower():
+                    remote_ip = conn.raddr.ip
+                    if remote_ip in ["127.0.0.1", "::1"]:
+                        continue
+                    if name.lower() in SYSTEM_PROCESSES:
+                        continue
                     connections.append({
-                        "ip": conn.raddr.ip,
+                        "ip": remote_ip,
                         "port": conn.raddr.port,
                         "pid": conn.pid
                     })
