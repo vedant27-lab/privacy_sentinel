@@ -2,6 +2,7 @@ import psutil as ps
 import time
 from database.db import log_process_event
 from core.risk_analyzer import calculate_path_risk
+from core.event_bus import emit_event
 
 
 
@@ -44,7 +45,7 @@ def monitor_processes_changes():
 
         for pid in new_processes:
             name = current_snapshot[pid]
-            print(f"[NEW PROCESS] {name} (PID: {pid})")
+            emit_event(f"[NEW PROCESS] {name} (PID: {pid})")
 
             cpu, memory, exe_path, parent, username = get_process_metadata(pid)
 
@@ -63,6 +64,6 @@ def monitor_processes_changes():
         
         for pid in terminated_processes:
             name = previous_snapshot[pid]
-            print(f"[TERMINATED] {name} (PID: {pid})")
+            emit_event(f"[TERMINATED] {name} (PID): {pid}")
             log_process_event("TERMINATED", name, pid, None, None, None, None, None)
         previous_snapshot = current_snapshot

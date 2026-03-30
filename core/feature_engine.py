@@ -24,9 +24,9 @@ def preprocess(df):
     df["hour"] = df["timestamp"].dt.hour
 
     def path_risk(path):
-        if path is None:
+        if path is None or not isinstance(path, str) or path == "":
             return 1
-        
+
         path = path.lower()
 
         if "program files" in path:
