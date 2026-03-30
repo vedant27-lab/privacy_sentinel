@@ -2,7 +2,6 @@ from sklearn.ensemble import IsolationForest
 try:
     from core.feature_engine import get_features
 except ModuleNotFoundError:
-    # Support running as script (python core/train_model.py)
     from feature_engine import get_features
 import joblib
 

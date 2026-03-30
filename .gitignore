@@ -26,3 +26,6 @@ Thumbs.db
 # Logs
 logs/
 *.log
+
+#LLM
+phi-2.Q8_0.gguf
